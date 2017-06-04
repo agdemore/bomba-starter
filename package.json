@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node ./bin/www & webpack --watch",
     "dev": "node ./index.js & webpack --watch",
     "server": "node ./index.js",
-    "build": "NODE_ENV=production node ./index.js",
+    "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

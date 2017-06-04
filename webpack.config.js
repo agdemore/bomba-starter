@@ -12,7 +12,7 @@ module.exports = {
   entry: {
     vendor: ["vue"],
     app: [
-      './web/app.js'
+      join(__dirname, 'web/app/app.js'),
     ]
   },
   output: {
