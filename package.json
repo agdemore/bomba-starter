@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www & webpack --watch",
-    "dev": "node ./index.js & webpack --watch",
-    "server": "node ./index.js",
+    "start": "node ./app.js & webpack --watch",
+    "dev": "webpack & node ./app.js",
+    "server": "node ./app.js",
     "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
