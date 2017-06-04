@@ -9,6 +9,7 @@
   .app-container {
     display: flex;
     height: 100%;
+    padding: 5px;
   }
 
   .fade-router-enter-active, .fade-router-leave-active {
