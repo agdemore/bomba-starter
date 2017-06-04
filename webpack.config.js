@@ -8,17 +8,17 @@ var webpack = require('webpack');
 var prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  context: join(__dirname, 'app'),
+  context: join(__dirname, 'web/app'),
   entry: {
     vendor: ["vue"],
     app: [
-      './app.js'
+      './web/app.js'
     ]
   },
   output: {
     filename: 'app.bundle.js',
-    path: join(__dirname, 'dist'),
-    publicPath: '/dist/'
+    path: join(__dirname, 'web/dist'),
+    publicPath: 'web/dist/'
   },
   module: {
     rules: [
@@ -40,8 +40,8 @@ module.exports = {
   },
   resolve: {
     modules: [
-      join(__dirname, 'app'),
-      join(__dirname, 'uikit'),
+      join(__dirname, 'web/app'),
+      join(__dirname, 'web/uikit'),
       "node_modules"
     ]
   },
