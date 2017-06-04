@@ -32,6 +32,14 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+///
+// app.use(express.static(path.join(__dirname, 'web/public')));
+app.use('/dist', express.static(path.join(__dirname, 'web/dist')));
+app.get(function root(req, res) {
+  res.sendFile(path.join(__dirname, 'web/public/index.html'));
+});
+///
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
