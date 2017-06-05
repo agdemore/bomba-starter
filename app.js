@@ -27,6 +27,8 @@ app.use('/test2', function root(req, res) {
   res.json({ 'eeeee222': 'pooookkkk2222' });
 });
 
+app.use('/auth', express.static(path.join(__dirname, 'web/routes/auth')));
+
 var server = app.listen(port, function() {
   var host = server.address().address;
   console.log('Server is listening at http://%s:%s', host, port);
