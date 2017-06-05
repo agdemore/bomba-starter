@@ -28,8 +28,11 @@ exports.doSomethingWithContract = function() {
         "\n Sender:\t" + result.args.sender + " \t" + tokensContract.coinBalanceOf.call(result.args.sender) +
         " tokens \n Receiver:\t" + result.args.receiver + " \t" + tokensContract.coinBalanceOf.call(result.args.receiver) + " tokens" )
   });
+  //
+  web3.personal.unlockAccount(web3.eth.accounts[0], "password"); // кибербезопасность во плоти
 
-  tokensContract.sendCoin.sendTransaction(web3.eth.accounts[1], 1000, {from: web3.eth.accounts[0]})
+  // если раскомменить строчку ниже будет транзакция треш и мясо
+  // tokensContract.sendCoin.sendTransaction(web3.eth.accounts[1], 1000, {from: web3.eth.accounts[0]})
 
 };
 
