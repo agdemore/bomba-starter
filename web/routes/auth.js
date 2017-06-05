@@ -34,16 +34,16 @@ router.post('/',
             if (data.username.indexOf('@') !== -1) {
                 search.$or.push({ email: data.username });
             } else {
-                var phone = helper.normalizePhone(data.username);
+                let phone = helper.normalizePhone(data.username);
                 if (phone) {
                     search.$or.push({ phoneNorm: phone });
                 }
             }
 
-            dbUser = yield db.User.findOne(search);
+            dbUser = await db.User.findOne(search);
 
             if (dbUser) {
-                var passHash = helper.getHash(dbUser.uid + '|' + data.password);
+                let passHash = helper.getHash(dbUser.uid + '|' + data.password);
 
                 if (passHash !== dbUser.passwordHash) {
                     throw 'WRONG_AUTH_DATA';
@@ -58,7 +58,7 @@ router.post('/',
         if (!authByToken && data.rememberMe) {
             token = helper.generateToken();
 
-            var accessToken = new db.UserAccessToken({
+            let accessToken = new db.UserAccessToken({
                 _id: token,
                 user: dbUser._id,
                 expireAt: moment().add(1, "month").toDate()
