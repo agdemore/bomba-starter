@@ -24,6 +24,19 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        .items {
+
+          &___status {
+            &.ready {
+              color: #2ecc71;
+            }
+            color: grey;
+            font-size: 12px;
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
       }
     }
     &__footer {
@@ -58,12 +71,10 @@
   <div class="bill-editor">
     <div class="bill-editor__title"></div>
     <div class="bill-editor__fields">
-      <div class="bill-editor__fields--users">
-      {{ 'Участники: ' + newbill.users.join(', ') }}
-      </div>
       <div v-for="payer in newbill.payers" class="bill-editor__fields--items">
-        <div class="items__title">{{  }}</div>
-        <input class="items__value"/>
+        <div class="items__title">{{ getUser(payer.wallet) }}</div>
+        <input class="items__value" v-model="payer.sum"/>
+        <div class="items__status" :class="{ 'ready': payer.ready }">{{ payer.ready ? 'оплачено' : 'ожидание' }}</div>
       </div>
     </div>
     <div class="bill-editor__footer">
@@ -83,7 +94,8 @@
     },
     computed: {
       ...mapState({
-        bill: state => state.tabs.currentBill
+        bill: state => state.tabs.currentBill,
+        friends: state => state.auth.friends
       })
     },
     methods: {
@@ -94,6 +106,10 @@
       },
       save() {
         this.saveBill(this.newbill);
+      },
+      getUser(wallet) {
+        const ind = (this.friends || []).find(urs => usr.wallet === wallet);
+        return (ind || {}).name || 'Участник';
       }
     },
     mounted() {
