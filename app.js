@@ -1,11 +1,9 @@
-var port = 8000;
-var express = require('express');
-var app = express();
-var path = require('path');
+let port = 8000;
+let express = require('express');
+let app = express();
+let path = require('path');
 
-var contractAPI = require('./contract')
-
-
+let contractAPI = require('./contract');
 
 app.use(express.static(path.join(__dirname, 'web/public')));
 app.use('/dist', express.static(path.join(__dirname, 'web/dist')));
