@@ -8,14 +8,17 @@ const express = require('express'),
     _ = require('lodash'),
     db = require('../db'),
     moment = require('moment'),
+    checkToken = require('../middlewares').checkToken,
     uuid = require('node-uuid');
+
+router.use(checkToken);
 
 router.post('/', (req, res, next) => {
 
 });
 
 router.get('/', (req, res, next) => {
-
+    res.json(db.users);
 });
 
 module.exports = router;

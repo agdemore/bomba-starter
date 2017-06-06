@@ -13,8 +13,14 @@ const express = require('express'),
 router.post('/', (req, res, next) => {
         let data = req.body;
 
-        let username = data.username;
-        let password = data.password;
+        if (data.token) {
+            let user = _.find(db.users, { token: data.token });
+            res.json({ error: false, username: user.name, wallet: user.wallet });
+            return;
+        }
+
+        let username = (data.username) ? data.username: '';
+        let password = (data.password) ? data.password: '';
 
         let userIndex = _.findIndex(db.users, { name: username });
         if (userIndex >= 0) {
