@@ -4,7 +4,7 @@
 import axios from 'axios';
 
 export const auth = (store, { login, password }) => {
-  return axios.post('', {
+  return axios.post('/auth', {
     username: login,
     password
   });

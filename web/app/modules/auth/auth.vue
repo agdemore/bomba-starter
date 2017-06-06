@@ -9,7 +9,7 @@
     flex-grow: 1;
 
     background-color: #34495e;  
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
   }
   .auth {
     display: flex;
@@ -56,7 +56,6 @@
   }
 
   .auth-app-enter-active, .auth-app-leave-active {
-    
     opacity: 1;
   }
   .auth-app-enter, .auth-app-leave-to {
@@ -69,11 +68,11 @@
       <div class="auth">
         <div class="auth--login">
           <input type="text" autoFocus="autofocus" placeholder="Email"
-                  :model="login">
+                  v-model="login">
         </div>
         <div class="auth--password">
           <input type="password" placeholder="Password"
-                  :model="password"
+                  v-model="password"
                   v-on:keyup.enter="authMe">
         </div>
       </div>
@@ -103,6 +102,7 @@
           auth: 'auth'
       }),
       authMe() {
+        console.log('EEPOOOOOKKK', this.password, this.login);
         if (this.login && this.password)
           this.auth({ login: this.login, password: this.password })
           .then((res) => {
