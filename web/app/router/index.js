@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import axios from 'axios';
 
 import FormPage from 'modules/form/form.vue';
 import AuthPage from 'modules/auth/auth.vue';
@@ -26,12 +27,25 @@ const Router = new VueRouter({
 });
 
 Router.beforeEach((to, from, next) => {
-  const token = window.localStorage.getItem('share-pay-user-token');
-  if (!token && to.name !== 'auth-page')
-    next({
+  const failture = () => next({
       name: 'auth-page',
       query: { next: to.path }
-    })
-  next();
+    });
+  const token = window.localStorage.getItem('share-pay-user-token');
+  if (!token && to.name !== 'auth-page') {
+    failture();
+    return;
+  }
+  return axios.post('/auth', {
+    token
+  }).then((res) => {
+    if (!res.data.error) {
+      next();
+      return;
+    }
+    failture();
+  }).catch(() => {
+    failture();
+  });
 });
 export default Router;
