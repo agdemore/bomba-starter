@@ -17,15 +17,21 @@ const Router = new VueRouter({
       name: 'form-page',
       component: FormPage
     },
-      {
-        path: '/login',
-          name: 'auth-page',
-          component: AuthPage
-      }
+    {
+      path: '/login',
+      name: 'auth-page',
+      component: AuthPage
+    }
   ]
 });
 
 Router.beforeEach((to, from, next) => {
+  const token = window.localStorage.getItem('share-pay-user-token');
+  if (!token && to.name !== 'auth-page')
+    next({
+      name: 'auth-page',
+      query: { next: to.path }
+    })
   next();
 });
 export default Router;

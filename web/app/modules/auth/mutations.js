@@ -1,9 +1,17 @@
-/**
- * Created by agdemore on 05.06.17.
- */
-
+import {
+  CHANGE_TOKEN,
+  LOG_OFF
+} from './actions';
 
 export const defaultState = {
-    user: null,
-    error: null
+  token: null
+};
+
+export const mutations = {
+  [CHANGE_TOKEN](state, token) {
+    state.token = token;
+  },
+  [LOG_OFF](state) {
+    state.token = null;
+  }
 };

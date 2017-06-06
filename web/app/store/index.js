@@ -2,13 +2,15 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import form from 'modules/form';
+import auth from 'modules/auth';
 
 Vue.use(Vuex);
 
 const mutations = {};
 const state = {};
 const components = {
-  form
+  form,
+  auth
 };
 const modules = {};
 const getters = {};
