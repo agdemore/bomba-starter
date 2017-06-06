@@ -3,6 +3,9 @@
  */
 import axios from 'axios';
 
-export const auth = (store, payload) => {
-
+export const auth = (store, { login, password }) => {
+  return axios.post('', {
+    username: login,
+    password
+  });
 };

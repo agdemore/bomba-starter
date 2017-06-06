@@ -17,7 +17,7 @@ app.get(function root(req, res) {
 contractAPI.doSomethingWithContract();
 
 app.use('/test', function root(req, res) {
-  res.json({ "mainAccBalance": contractAPI.test() });
+  res.json({ "mainAccBalance": contractAPI.getMainAccBalance() });
 });
 
 app.use('/test2', function root(req, res) {

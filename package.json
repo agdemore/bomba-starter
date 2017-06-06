@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./app.js & webpack --watch",
-    "dev": "webpack & node ./app.js",
+    "dev": "webpack & node ./app.js", 
     "server": "node ./app.js",
     "build": "NODE_ENV=production webpack"
   },
