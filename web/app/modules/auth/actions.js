@@ -44,6 +44,7 @@ export const getInfo = (store) => {
     return axios.get('/friends', {
       token
     }).then(res => {
+      console.log('FRRR', res);
       if (!res.data.error)
         commit(SET_FRIENDS, res.data.friends);
       return res.data.friends;

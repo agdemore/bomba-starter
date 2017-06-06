@@ -9,7 +9,7 @@
     flex-grow: 1;
 
     background-color: #34495e;  
-    
+    padding-bottom: 70px;
   }
   .auth {
     display: flex;
