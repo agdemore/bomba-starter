@@ -10,7 +10,7 @@ let db = mongoose.connection;
 
 module.exports.db = db;
 
-const connectionString = `mongodb://10.0.14.175:27017/bstarter`;
+const connectionString = `mongodb://localhost:27017/bstarter`;
 
 const connect = function () {
     if (db.readyState !== 0) {

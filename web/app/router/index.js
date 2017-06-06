@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import FormPage from 'modules/form/form.vue';
+import AuthPage from 'modules/auth/auth.vue';
 
 Vue.use(VueRouter);
 
@@ -15,7 +16,12 @@ const Router = new VueRouter({
     { path: '/form',
       name: 'form-page',
       component: FormPage
-    }
+    },
+      {
+        path: '/login',
+          name: 'auth-page',
+          component: AuthPage
+      }
   ]
 });
 

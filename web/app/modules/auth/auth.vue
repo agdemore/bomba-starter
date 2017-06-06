@@ -1,10 +1,11 @@
 
 <template>
+    <div class="auth">auth</div>
 </template>
 
 <script>
     import { mapState, mapActions, mapGetters } from 'vuex';
-    module.exports = {
+    export default {
         data () {
             return {}
         },

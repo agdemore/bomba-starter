@@ -16,8 +16,6 @@ export default {
     },
 
     normalizePhone: function (str) {
-
-
         var phone = '';
         var goodPhone = true;
 
