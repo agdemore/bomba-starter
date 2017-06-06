@@ -12,7 +12,8 @@ exports.saveOpenBill = async (bill) => {
     // даст команду на смарт контракт дабы сохранить в нем данные
     // здесь надо чекать статус и корректность входящего счета
     // на предмет существования таких счетов в блокчейне будет озадачиваться контракт
-    await mongo.Bill.save(bill);
+    const newBill = new mongo.Bill(bill);
+    await newBill.save();
 };
 
 /**
