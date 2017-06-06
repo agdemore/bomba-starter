@@ -16,5 +16,7 @@ exports.checkToken = (req, res, next) => {
         } else {
             res.json({'error': true });
         }
+    } else {
+        res.json({'error': true });
     }
 };
