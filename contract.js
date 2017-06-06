@@ -10,6 +10,7 @@ web3.setProvider(new web3.providers.HttpProvider('http://192.168.72.233:8545'));
 const abi = [{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"sendCoin","outputs":[{"name":"sufficient","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"coinBalanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"supply","type":"uint256"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"sender","type":"address"},{"indexed":false,"name":"receiver","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CoinTransfer","type":"event"}];
 const contractAddress = "0xcfcf3bc7ff72012d57ff642d1defb895fb786b86";
 
+// тестовый набор биллей
 let bills = [
   {
     id: "111",
@@ -56,12 +57,20 @@ let bills = [
 exports.saveOpenBill = (bill) => {
   // даст команду на смарт контракт дабы сохранить в нем данные
   // здесь надо чекать статус и корректность входящего счета
-
   // на предмет существования таких счетов в блокчейне будет озадачиваться контракт
 };
 
 /**
- *
+ * Сменить статус контракта на закрывающийся
+ */
+exports.closeOpenBill = (bill) => {
+  // проверит что билль вообще можно закрывать (сумма, участники и все такое)
+  // кинет на смарт вызов закрытия билля
+  // получит билль новой структуры (с payments списком)
+};
+
+/**
+ * Подтвердить свое участие в оплате по счету
  */
 exports.confirmPayment = (billId, accountId) => {
   // даст команду кошельку accountId сделать перевод на контракт в честь счета с billId
@@ -90,16 +99,9 @@ exports.getMainAccBalance = function test() {
 };
 
 
-
-
-
-
-
-
-
-
-
-
+/**
+ * TEST STUFF
+ */
 
 
 exports.doSomethingWithContract = function() {
