@@ -5,6 +5,12 @@ let path = require('path');
 
 let contractAPI = require('./contract');
 
+let bodyParser = require('body-parser');
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, 'web/public')));
 app.use('/dist', express.static(path.join(__dirname, 'web/dist')));
 app.get(function root(req, res) {
@@ -22,10 +28,12 @@ app.use('/test2', function root(req, res) {
   res.json({ 'eeeee222': 'pooookkkk2222' });
 });
 
-app.use('/auth', require('./web/routes/auth'));
+app.use('/auth', require('./routes/auth'));
+app.use('/bills', require('./routes/bills'));
+app.use('/friends', require('./routes/friends'));
 
-var server = app.listen(port, function() {
-  var host = server.address().address;
+let server = app.listen(port, function() {
+  let host = server.address().address;
   console.log('Server is listening at http://%s:%s', host, port);
 });
 
