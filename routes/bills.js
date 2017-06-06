@@ -14,21 +14,54 @@ const express = require('express'),
 
 router.use(checkToken);
 
-router.post('/', (req, res, next) => {
+router.get('/', (req, res, next) => {
 
 });
 
-router.get('/', (req, res, next) => {
+router.post('/', (req, res, next) => {
     let data = req.body;
 
     let wallet = (data.wallet) ? data.wallet : undefined;
     if (wallet) {
-        res.json({ error: false, bills: contractAPI.getBillsByAccount(wallet)});
+        let bills = contractAPI.getBillsByAccount(wallet);
+        let billsForClient = [];
+        bills.map((bill) => {
+            billsForClient.push(JSON.parse(bill.clientData));
+        });
+        res.json({ error: false, bills: billsForClient});
     } else {
         res.json({ error: true })
     }
 });
 
+router.get('/:billId', (req, res, next) => {
+    const billId = req.params.billId;
+    if (billId) {
+        let bill = contractAPI.getBillById(billId).clientData;
+        res.json({ error: false, bill: JSON.parse(bill) });
+    } else {
+        res.json({ error: true })
+    }
+});
 
+router.post('/saveOpenBill', (req, res, next) => {
+    let data = req.body;
+    let bill = (data.bill) ? data.bill : undefined;
+    if (bill) {
+        contractAPI.saveOpenBill(bill);
+    } else {
+        res.json({ error: true });
+    }
+});
+
+router.post('/closeOpenBill', (req, res, next) => {
+    let data = req.body;
+    let bill = (data.bill) ? data.bill : undefined;
+    if (bill) {
+        contractAPI.closeOpenBill(bill);
+    } else {
+        res.json({ error: true });
+    }
+});
 
 module.exports = router;

@@ -18,7 +18,9 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-    res.json(db.users);
+    let query = req.query;
+    let token = query.token;
+    res.json({ friends: _.filter(db.users, (obj) => { return obj.token !== token }) });
 });
 
 module.exports = router;
