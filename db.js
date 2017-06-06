@@ -3,7 +3,7 @@
  */
 'use strict';
 
-module.exports.db = {
+module.exports = {
     users: [
         {
             name: 'alex',

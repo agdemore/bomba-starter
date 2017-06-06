@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 
-var contractAPI = require('./contract')
+var contractAPI = require('./contract');
 
 var bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
@@ -28,8 +28,9 @@ app.use('/test2', function root(req, res) {
   res.json({ 'eeeee222': 'pooookkkk2222' });
 });
 
-app.use('/auth', require('./web/routes/auth'));
-// app.use('/bills', require('./web/routes/bills'));
+app.use('/auth', require('./routes/auth'));
+app.use('/bills', require('./routes/bills'));
+app.use('/friends', require('./routes/friends'));
 
 var server = app.listen(port, function() {
   var host = server.address().address;
