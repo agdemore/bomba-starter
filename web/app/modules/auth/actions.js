@@ -25,3 +25,19 @@ export const logOff = (store) => {
   window.localStorage.setItem('share-pay-user-token', null);
   return commit(LOG_OFF);
 };
+
+export const getUserInfo = () => {
+  const token = window.localStorage.getItem('share-pay-user-token');
+  return axios.post('/auth', {
+    token
+  });
+};
+
+export const GET_USER_INFO = 'GET_USER_INFO';
+export const getInfo = (store) => {
+  return getUserInfo().then(res => {
+    if (res.error)
+      store.commit(LOG_OFF);
+    else store.commit(GET_USER_INFO, res.data);
+  });
+};

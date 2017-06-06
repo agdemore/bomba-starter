@@ -1,10 +1,13 @@
 import {
   CHANGE_TOKEN,
-  LOG_OFF
+  LOG_OFF,
+  GET_USER_INFO
 } from './actions';
 
 export const defaultState = {
-  token: null
+  token: null,
+  name: '',
+  wallet: ''
 };
 
 export const mutations = {
@@ -13,5 +16,9 @@ export const mutations = {
   },
   [LOG_OFF](state) {
     state.token = null;
+  },
+  [GET_USER_INFO](state, payload) {
+    state.name = payload.username || '';
+    state.wallet = payload.wallet || '';
   }
 };
