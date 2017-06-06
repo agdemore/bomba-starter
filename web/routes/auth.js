@@ -10,9 +10,6 @@ const express = require('express'),
     moment = require('moment'),
     uuid = require('node-uuid');
 
-// import helper from '././server/helper';
-// import db from '../server/db';
-
 router.post('/', (req, res, next) => {
         let data = req.body;
 
