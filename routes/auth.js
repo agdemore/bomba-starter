@@ -29,7 +29,12 @@ router.post('/', (req, res, next) => {
         let userIndex = _.findIndex(db.users, { name: username });
         if (userIndex >= 0) {
             if (password === db.users[userIndex].password) {
-                res.json({'error': false, 'token': db.users[userIndex].token });
+                res.json({
+                    'error': false,
+                    'token': db.users[userIndex].token,
+                    'username': db.users[userIndex].name,
+                    'wallet': db.users[userIndex].wallet
+                });
             }
         } else {
             res.json({'error': true});
