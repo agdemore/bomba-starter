@@ -2,7 +2,8 @@ import Vue from 'vue';
 import {
   GET_BILLS,
   GET_BILL,
-  SAVE_BILL
+  SAVE_BILL,
+  CLEAR_BILL
 } from './actions';
 
 export const defaultState = {
@@ -21,5 +22,8 @@ export const mutations = {
     const ind = state.bills.findIndex(elem => elem.id === bill.id);
     if (ind !== -1)
       Vue.set(state.bills, ind, bill);
+  },
+  [CLEAR_BILL](state) {
+    state.currentBill = null;
   }
 };

@@ -34,13 +34,21 @@ export const SAVE_BILL = 'SAVE_BILL';
 export const saveBill = (store, bill) => {
   const { commit, rootState } = store;
   const token = rootState.auth.token;
+
+  console.log('save bill');
   return axios.post(`/bills/saveOpenBill?token=${token}`, {
     bill
-  })
-  .then(res => {
+  }).then(res => {
+    console.log('res bill', res);
     commit(SAVE_BILL, bill);
     return res;
   }).catch(err => {
     console.error(err);
   });
+};
+
+
+export const CLEAR_BILL = 'CLEAR_BILL';
+export const clearBill = (store) => {
+  return store.commit(CLEAR_BILL);
 };

@@ -33,6 +33,8 @@
       &--user {
         display: flex;
         flex-direction: row;
+        align-items: center;
+        margin-right: 5px;
         .user {
           &__icon {
             
@@ -54,7 +56,6 @@
         margin: 5px;
         padding: 8px;
 
-        border-radius: 15px;
         background-color: transparent;
         transition: background-color .3s ease;
 
@@ -74,7 +75,6 @@
         margin: 5px;
         padding: 8px;
 
-        border-radius: 15px;
         background-color: transparent;
         transition: background-color .3s ease;
         color: white;
@@ -115,7 +115,7 @@
             
           </div>
         </div>
-        <avatar imkey="avatar"></avatar>
+        <avatar imkey="avatar" :size="45"></avatar>
       </div>
     </div>
     <div class="form__panel">
@@ -151,15 +151,18 @@
     },
     methods: {
       ...mapActions({
-        logOff: 'logOff'
+        logOff: 'logOff',
+        clearBill: 'clearBill'
       }),
       logoutClick() {
         this.logOff();
         this.$router.push({ name: 'auth-page' });
       },
       create() {
-        this.$router.push({ name: 'create' });
-        this.activated = 'create';
+        this.clearBill().then(() => {
+          this.$router.push({ name: 'create' });
+          this.activated = 'create';
+        });
       },
       openCurrent() {
         this.$router.push({ name: 'current' });

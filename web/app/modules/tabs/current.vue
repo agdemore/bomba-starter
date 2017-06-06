@@ -3,15 +3,20 @@
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    overflow-y: auto;
+  }
+  .wrapper {
   }
 </style>
 <template>
   <div class="current">
-    <bill v-for="bill in bills"
-          :key="bill.id"
-          :bill="bill"
-          v-on:click.native="billClick(bill)">
-    </bill>
+    <div class="wrapper">
+      <bill v-for="bill in bills"
+            :key="bill.id"
+            :bill="bill"
+            v-on:click.native="billClick(bill)">
+      </bill>
+    </div>
   </div>
 </template>
 <script type="text/babel">

@@ -6,9 +6,67 @@
 
     &__title {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 10px;
+
+
+      .title {
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        div {
+          padding: 5px 10px 5px 10px;
+        }
+        input {
+          padding: 5px 10px 5px 10px;
+          border-bottom: 2px solid grey;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+        }
+        input:focus {
+          outline: none;
+        }
+      }
+
+      .pay {
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        div {
+          padding: 5px 10px 5px 10px;
+        }
+        input {
+          padding: 5px 10px 5px 10px;
+          border-bottom: 2px solid grey;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+        }
+        input:focus {
+          outline: none;
+        }
+      }
+      .receiver {
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        div {
+          padding: 5px 10px 5px 10px;
+        }
+        input {
+          padding: 5px 10px 5px 10px;
+          border-bottom: 2px solid grey;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+        }
+        input:focus {
+          outline: none;
+        }
+      }
     }
     &__fields {
       display: flex;
@@ -69,12 +127,25 @@
 </style>
 <template>
   <div class="bill-editor">
-    <div class="bill-editor__title"></div>
+    <div class="bill-editor__title">
+      <div class="title">
+        <div>Название счета:</div>
+        <input v-if="isNew" v-model="newbill.title"/>
+      </div>
+      <div class="pay">
+        <div>Сумма:</div>
+        <input v-if="isNew" v-model="newbill.pay"/>
+      </div>
+      <div class="receiver">
+        <div>Получатель:</div>
+        <input v-if="isNew" v-model="newbill.receiver"/>
+      </div>
+    </div>
     <div class="bill-editor__fields">
       <div v-for="payer in newbill.payers" class="bill-editor__fields--items">
         <div class="items__title">{{ getUser(payer.wallet) }}</div>
-        <input class="items__value" v-model="payer.sum"/>
-        <div class="items__status" :class="{ 'ready': payer.ready }">{{ payer.ready ? 'оплачено' : 'ожидание' }}</div>
+        <input class="items__value" v-model="payer.amount"/>
+        <div class="items__status" :class="{ 'ready': payer.confirmed }">{{ payer.confirmed ? 'оплачено' : 'ожидание' }}</div>
       </div>
     </div>
     <div class="bill-editor__footer">
@@ -89,7 +160,8 @@
   export default {
     data() {
       return {
-        newbill: null
+        newbill: {},
+        isNew: false
       };
     },
     computed: {
@@ -100,6 +172,7 @@
     },
     methods: {
       ...mapActions({
+        saveBill: 'saveBill'
       }),
       back() {
         this.$router.push({ name: 'current' });
@@ -113,12 +186,19 @@
       }
     },
     mounted() {
-      this.newbill = cloneDeep(this.bill);
-    },
-    watch: {
-      bill(newVal) {
-        this.newbill = cloneDeep(newVal);
+      if (this.bill === null) {
+        this.isNew = true;
+        this.newbill = {
+          title: 'Счет 1',
+          pay: 100,
+          type: '',
+          payers: [],
+          complete: false,
+          receiver: 'Получатель'
+        };
+        return;
       }
+      this.newbill = cloneDeep(this.bill);
     }
   };
 </script>

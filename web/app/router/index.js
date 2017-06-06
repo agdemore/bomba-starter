@@ -40,7 +40,7 @@ const Router = new VueRouter({
         {
           path: 'create',
           name: 'create',
-          component: Creator
+          component: BillEditor
         },
         {
           path: 'bill',
