@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import form from 'modules/form';
 import auth from 'modules/auth';
+import tabs from 'modules/tabs';
 
 Vue.use(Vuex);
 
@@ -10,7 +11,8 @@ const mutations = {};
 const state = {};
 const components = {
   form,
-  auth
+  auth,
+  tabs
 };
 const modules = {};
 const getters = {};

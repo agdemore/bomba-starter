@@ -17,7 +17,7 @@ const Router = new VueRouter({
   routes: [
     { path: '/',
       name: 'start',
-      redirect: { name: 'form-page' }
+      redirect: { name: 'current' }
     },
     { path: '/form',
       name: 'form-page',
