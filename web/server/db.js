@@ -2,7 +2,7 @@
  * Created by agdemore on 05.06.17.
  */
 'use strict';
-
+/*
 const mongoose = require('mongoose');
 
 
@@ -56,11 +56,11 @@ connect();
 
 const userScheme = mongoose.Schema({
     username: { type: String, unique: true },
-    uid: String,
+    // uid: String,
     passwordHash: String,
-    email: { type: String, index: true },
-    phone: String,
-    phoneNorm: { type: Number, index: true },
+    // email: { type: String, index: true },
+    // phone: String,
+    // phoneNorm: { type: Number, index: true },
     createDate: { type: Date, default: Date.now }
 });
 
@@ -73,3 +73,24 @@ const userAccessTokenScheme = mongoose.Schema({
 });
 
 module.exports.UserAccessToken = mongoose.model('UserAccessToken', userAccessTokenScheme);
+*/
+
+export default {
+    users: [
+        {
+            name: 'alex',
+            password: '1234',
+            token: '34fq23f4q23f-fq34qf45-fq45q354-qfq45fw4623'
+        },
+        {
+            name: 'nikita',
+            password: '1234',
+            token: 'q3f4qf3q-fq4fqcff45-cqf4cq4qw-qwverqrvwe33'
+        },
+        {
+            name: 'roma',
+            password: '1234',
+            token: 'jcf3i45-3c45w34c34t-c4tw35twc5w45tcwertwc5'
+        }
+    ]
+}
