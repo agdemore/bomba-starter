@@ -2,14 +2,20 @@
   .current {
     display: flex;
     flex-grow: 1;
-    background: red;
+    flex-direction: column;
   }
 </style>
 <template>
-  <div class="current"></div>
+  <div class="current">
+    <bill v-for="bill in bills"
+          :key="bill.id"
+          :bill="bill"
+          v-on:click.native="billClick(bill)">
+    </bill>
+  </div>
 </template>
 <script type="text/babel">
-import { mapActions } from 'vuex'
+  import { mapActions, mapState } from 'vuex'
   export default {
     props: {
     },
@@ -17,13 +23,26 @@ import { mapActions } from 'vuex'
       return {
       };
     },
+    components: {
+      bill: require('modules/bills/bill.vue')
+    },
+    computed: {
+      ...mapState({
+        bills: state => state.tabs.bills
+      })
+    },
     methods: {
       ...mapActions({
         getBills: 'getBills',
-        getInfo: 'getInfo'
-      })
-    },
-    components: {
+        getInfo: 'getInfo',
+        getBillbyId: 'getBillbyId'
+      }),
+      billClick(bill) {
+        console.log('fsfsdfsdf!!!! ! !!');
+        this.getBillbyId(bill.id).then(() => {
+          this.$router.push({ name: 'bill' });
+        });
+      }
     },
     mounted() {
       this.getInfo().then(this.getBills);

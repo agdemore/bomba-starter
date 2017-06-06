@@ -10,6 +10,7 @@ import AuthPage from 'modules/auth/auth.vue';
 import History from 'modules/tabs/history.vue';
 import Current from 'modules/tabs/current.vue';
 import Creator from 'modules/tabs/creator.vue';
+import BillEditor from 'modules/bills/bill-editor.vue';
 
 import { getUserInfo } from 'modules/auth/actions.js';
 
@@ -40,6 +41,11 @@ const Router = new VueRouter({
           path: 'create',
           name: 'create',
           component: Creator
+        },
+        {
+          path: 'bill',
+          name: 'bill',
+          component: BillEditor
         }
       ]
     },

@@ -34,11 +34,19 @@ export const getUserInfo = () => {
 };
 
 export const GET_USER_INFO = 'GET_USER_INFO';
+export const SET_FRIENDS = 'SET_FRIENDS';
 export const getInfo = (store) => {
   return getUserInfo().then(res => {
     if (res.error)
       store.commit(LOG_OFF);
     else store.commit(GET_USER_INFO, res.data);
-    return res.data;
+    const token = window.localStorage.getItem('share-pay-user-token');
+    return axios.get('/friends', {
+      token
+    }).then(res => {
+      if (!res.data.error)
+        commit(SET_FRIENDS, res.data.friends);
+      return res.data.friends;
+    });
   });
 };

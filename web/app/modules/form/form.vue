@@ -167,6 +167,7 @@
       }
     },
     mounted() {
+      this.activated = 'current';
     }
   };
 </script>

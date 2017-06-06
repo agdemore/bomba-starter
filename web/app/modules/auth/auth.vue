@@ -195,7 +195,7 @@
               setTimeout(() => {
                 this.progress = false;
                 this.error = false;
-                this.$router.push({ name: 'current' })
+                this.$router.push({ name: 'current' });
               }, 400);
             else {
               setTimeout(() => {
