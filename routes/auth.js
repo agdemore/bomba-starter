@@ -15,7 +15,11 @@ router.post('/', (req, res, next) => {
 
         if (data.token) {
             let user = _.find(db.users, { token: data.token });
-            res.json({ error: false, username: user.name, wallet: user.wallet });
+            if (user) {
+                res.json({error: false, username: user.name, wallet: user.wallet});
+            } else {
+                res.json({'error': true});
+            }
             return;
         }
 
