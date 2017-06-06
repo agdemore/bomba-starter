@@ -138,7 +138,7 @@
   <transition name="auth-app">
     <div class="auth-container">
     <div class="auth--logo">
-      Block me up
+      Share my pay up!
     </div>
       <div class="auth">
         <div class="auth--login">

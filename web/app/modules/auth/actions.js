@@ -12,9 +12,16 @@ export const auth = (store, { login, password }) => {
     password
   }).then((res) => {
     if (!res.data.error) {
-      window.localStorage.setItem('token', res.data.token);
+      window.localStorage.setItem('share-pay-user-token', res.data.token);
       commit(CHANGE_TOKEN, res.data.token);
     }
     return res;
   });
+};
+
+export const LOG_OFF = 'LOG_OFF';
+export const logOff = (store) => {
+  const { commit } = store;
+  window.localStorage.setItem('share-pay-user-token', null);
+  return commit(LOG_OFF);
 };
