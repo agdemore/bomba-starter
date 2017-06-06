@@ -75,7 +75,7 @@ const userAccessTokenScheme = mongoose.Schema({
 module.exports.UserAccessToken = mongoose.model('UserAccessToken', userAccessTokenScheme);
 */
 
-module.exports.db = {
+module.exports = {
     users: [
         {
             name: 'alex',

@@ -11,9 +11,9 @@ export const auth = (store, { login, password }) => {
     username: login,
     password
   }).then((res) => {
-    if (!res.error) {
-      window.localStorage.setItem('token', res.token);
-      commit(CHANGE_TOKEN, res.token);
+    if (!res.data.error) {
+      window.localStorage.setItem('token', res.data.token);
+      commit(CHANGE_TOKEN, res.data.token);
     }
     return res;
   });

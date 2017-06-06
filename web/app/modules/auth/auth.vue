@@ -75,6 +75,11 @@
         color: #2ecc71;
         border: 2px solid #2ecc71;
       }
+
+      &-error {
+        color: #c0392b;
+        border: 2px solid #c0392b;
+      }
     }
   }
 
@@ -146,7 +151,7 @@
                   v-on:keyup.enter="authMe">
         </div>
       </div>
-      <div class="auth--btn" v-if="!progress" @click="authMe">
+      <div class="auth--btn" :class="{ 'auth--btn-error': error }" v-if="!progress" @click="authMe">
         Sign in
       </div>
       <div class="spinner" v-if="progress">
@@ -165,7 +170,6 @@
         login: null,
         password: null,
         error: null,
-        mesage: null,
         progress: false
       };
     },
@@ -187,16 +191,22 @@
           this.progress = true;
           this.auth({ login: this.login, password: this.password })
           .then((res) => {
-            this.result = res;
-            setTimeout(() => {
-              this.progress = false;
-              this.$router.push({ path: 'form-app' })
-            }, 400);
-            
+            if (!res.data.error)
+              setTimeout(() => {
+                this.progress = false;
+                this.error = false;
+                this.$router.push({ path: 'form-app' })
+              }, 400);
+            else {
+              setTimeout(() => {
+                this.progress = false;
+                this.error = true;
+              }, 400);
+            }
           }).catch((err) => {
-            this.error = err;
             setTimeout(() => {
               this.progress = false;
+              this.error = err;
             }, 400);
           });
         }
