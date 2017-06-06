@@ -5,6 +5,14 @@ let path = require('path');
 
 let contractAPI = require('./contract');
 
+contractAPI.saveOpenBill({
+  id: "testobill",
+  type: "open",
+  clientData: "my data!",
+  summ: 20,
+  receiver: "0x1d7ED9A6f43C697d365715759f3281C0bc67EcfC"
+});
+
 let bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));

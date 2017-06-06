@@ -7,8 +7,8 @@ let Web3 = require('web3');
 let web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider('http://192.168.72.233:8545'));
 
-const abi = [{"constant":false,"inputs":[{"name":"receiver","type":"address"},{"name":"amount","type":"uint256"}],"name":"sendCoin","outputs":[{"name":"sufficient","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"coinBalanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[{"name":"supply","type":"uint256"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"sender","type":"address"},{"indexed":false,"name":"receiver","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"CoinTransfer","type":"event"}];
-const contractAddress = "0xcfcf3bc7ff72012d57ff642d1defb895fb786b86";
+const abi = [{"constant":false,"inputs":[{"name":"id","type":"uint256"},{"name":"reciever","type":"address"},{"name":"summ","type":"uint256"},{"name":"clientData","type":"string"},{"name":"payers","type":"address[]"},{"name":"payments","type":"uint256[]"}],"name":"saveOpenBill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"bills","outputs":[{"name":"status","type":"uint256"},{"name":"reciever","type":"address"},{"name":"summ","type":"uint256"},{"name":"clientData","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"id","type":"uint256"}],"name":"getBillById","outputs":[{"name":"","type":"uint256"},{"name":"","type":"address"},{"name":"","type":"uint256"},{"name":"","type":"string"},{"name":"","type":"address[]"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}];
+const contractAddress = "0xe52b8af447805b555e8469653fb3709d2d241d15";
 
 // тестовый набор биллей
 let bills = [
@@ -55,6 +55,8 @@ let bills = [
  * Записать новый счет в контракт
  */
 exports.saveOpenBill = (bill) => {
+  console.log(bill);
+
   // даст команду на смарт контракт дабы сохранить в нем данные
   // здесь надо чекать статус и корректность входящего счета
   // на предмет существования таких счетов в блокчейне будет озадачиваться контракт
@@ -66,7 +68,8 @@ exports.saveOpenBill = (bill) => {
 exports.closeOpenBill = (bill) => {
   // проверит что билль вообще можно закрывать (сумма, участники и все такое)
   // кинет на смарт вызов закрытия билля
-  // получит билль новой структуры (с payments списком)
+
+  // получит билль новой структуры (с payments списком) - может и не надо
 };
 
 /**
