@@ -23,7 +23,12 @@ router.post('/', (req, res, next) => {
 
     let wallet = (data.wallet) ? data.wallet : undefined;
     if (wallet) {
-        res.json({ error: false, bills: contractAPI.getBillsByAccount(wallet)});
+        let bills = contractAPI.getBillsByAccount(wallet);
+        let billsForClient = [];
+        bills.map((bill) => {
+            billsForClient.push(JSON.parse(bill.clientData));
+        });
+        res.json({ error: false, bills: billsForClient});
     } else {
         res.json({ error: true })
     }
@@ -32,7 +37,8 @@ router.post('/', (req, res, next) => {
 router.get('/:billId', (req, res, next) => {
     const billId = req.params.billId;
     if (billId) {
-        res.json({ error: false, bill: contractAPI.getBillById(billId)});
+        let bill = contractAPI.getBillById(billId).clientData;
+        res.json({ error: false, bill: JSON.parse(bill) });
     } else {
         res.json({ error: true })
     }
