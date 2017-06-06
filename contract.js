@@ -1,6 +1,8 @@
 /**
  * Created by forwardmomentum on 05.06.17.
- * todo move here contract stuff
+ *
+ * API для вызовов на контракте-регуляторе
+ *
  */
 
 var Web3 = require('web3');
