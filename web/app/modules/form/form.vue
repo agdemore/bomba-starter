@@ -151,11 +151,9 @@
     },
     methods: {
       ...mapActions({
-        logOff: 'logOff',
-        getInfo: 'getInfo'
+        logOff: 'logOff'
       }),
       logoutClick() {
-        console.log('sdfsdfdsfdsfdsfsd');
         this.logOff();
         this.$router.push({ name: 'auth-page' });
       },
@@ -169,7 +167,6 @@
       }
     },
     mounted() {
-      this.getInfo();
     }
   };
 </script>

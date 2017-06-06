@@ -1,15 +1,15 @@
 <style lang="sass">
-  .current {
+  .bill {
     display: flex;
     flex-grow: 1;
-    background: red;
   }
 </style>
 <template>
-  <div class="current"></div>
+  <div class="bill">
+  </div>
 </template>
 <script type="text/babel">
-import { mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
   export default {
     props: {
     },
@@ -19,14 +19,11 @@ import { mapActions } from 'vuex'
     },
     methods: {
       ...mapActions({
-        getBills: 'getBills',
-        getInfo: 'getInfo'
       })
     },
     components: {
     },
     mounted() {
-      this.getInfo().then(this.getBills);
     }
   };
 </script>

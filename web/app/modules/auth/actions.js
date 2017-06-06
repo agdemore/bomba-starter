@@ -39,5 +39,6 @@ export const getInfo = (store) => {
     if (res.error)
       store.commit(LOG_OFF);
     else store.commit(GET_USER_INFO, res.data);
+    return res.data;
   });
 };

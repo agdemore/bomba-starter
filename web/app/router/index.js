@@ -2,6 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
 
+import store from 'store';
+import { CHANGE_TOKEN } from 'modules/auth/actions';
+
 import FormPage from 'modules/form/form.vue';
 import AuthPage from 'modules/auth/auth.vue';
 import History from 'modules/tabs/history.vue';
@@ -63,6 +66,7 @@ Router.beforeEach((to, from, next) => {
   getUserInfo().then((res) => {
     if (!res.data.error) {
       next();
+      store.commit(CHANGE_TOKEN, token);
       return;
     }
     failture();
