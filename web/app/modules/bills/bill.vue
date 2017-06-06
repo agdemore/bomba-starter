@@ -16,7 +16,17 @@
     min-width: 100px;
 
     &__title {
-      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      &--name {
+        text-transform: uppercase;
+      }
+      &--receiver {
+        color: grey;
+        font-size: 12px;
+        display: flex;
+        justify-content: flex-end;
+      }
     }
 
     &__data {
@@ -34,7 +44,10 @@
 </style>
 <template>
   <div class="bill">
-    <div class="bill__title">{{ (bill.title || 'Счет') }}</div>
+    <div class="bill__title">
+      <div class="bill__title--name">{{ (bill.title || 'Счет') }}</div>
+      <div class="bill__title--receiver">{{ 'Получатель: ' + (bill.receiver || 'Кафе / ресторан') }}</div>
+    </div>
     <div class="bill__data">
       <div class="pay">{{ 'Сумма счета: ' + (bill.pay || 0) + ' уе.' }}</div>
       <div class="complete">{{ 'Состояние: ' + (bill.complete ? 'завершен' : 'активен') }}</div>

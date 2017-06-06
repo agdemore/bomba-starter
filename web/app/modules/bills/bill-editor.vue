@@ -75,6 +75,15 @@
       flex-direction: column;
       padding: 10px;
 
+      .plus-btn {
+        border: 1px solid #cecece;
+        padding: 8px;
+        cursor: pointer;
+        &:hover {
+          background: #cecece;
+        }
+      }
+
       &--users {
 
       }
@@ -131,17 +140,26 @@
       <div class="title">
         <div>Название счета:</div>
         <input v-if="isNew" v-model="newbill.title"/>
+        <div v-if="!isNew">{{ newbill.title || 'Счет' }}</div>
       </div>
       <div class="pay">
         <div>Сумма:</div>
         <input v-if="isNew" v-model="newbill.pay"/>
+        <div v-if="!isNew">{{ newbill.pay || 0 }}</div>
       </div>
       <div class="receiver">
         <div>Получатель:</div>
         <input v-if="isNew" v-model="newbill.receiver"/>
+        <div v-if="!isNew">{{ newbill.receiver || 'Кафе / ресторан' }}</div>
       </div>
     </div>
     <div class="bill-editor__fields">
+      <div class="plus-btn" @click="add">Добавить друга</div>
+      <div v-for="payer in news" class="bill-editor__fields--items">
+        <input class="items__title" v-model="payer.wallet"/>
+        <input class="items__value" v-model="payer.amount"/>
+        <div class="items__status" :class="{ 'ready': payer.confirmed }">{{ payer.confirmed ? 'оплачено' : 'ожидание' }}</div>
+      </div>
       <div v-for="payer in newbill.payers" class="bill-editor__fields--items">
         <div class="items__title">{{ getUser(payer.wallet) }}</div>
         <input class="items__value" v-model="payer.amount"/>
@@ -161,7 +179,8 @@
     data() {
       return {
         newbill: {},
-        isNew: false
+        isNew: false,
+        news: []
       };
     },
     computed: {
@@ -183,6 +202,13 @@
       getUser(wallet) {
         const ind = (this.friends || []).find(urs => usr.wallet === wallet);
         return (ind || {}).name || 'Участник';
+      },
+      add() {
+        this.news.push({
+          wallet: null,
+          amount: 0,
+          confirmed: false
+        });
       }
     },
     mounted() {
