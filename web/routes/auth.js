@@ -18,7 +18,7 @@ router.post('/', (req, res, next) => {
 
         let username = data.username;
         let password = data.password;
-
+        
         let userIndex = _.findIndex(db.users, { name: username });
         if (userIndex >= 0) {
             if (password === db.users[userIndex].password) {
