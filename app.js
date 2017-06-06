@@ -25,7 +25,7 @@ app.use('/test2', function root(req, res) {
 });
 
 app.use('/auth', require('./web/routes/auth'));
-app.use('/bills', require('./web/routes/bills'));
+// app.use('/bills', require('./web/routes/bills'));
 
 var server = app.listen(port, function() {
   var host = server.address().address;
