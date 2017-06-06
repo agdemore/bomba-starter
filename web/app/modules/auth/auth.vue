@@ -9,7 +9,7 @@
     flex-grow: 1;
 
     background-color: #34495e;  
-    transition: opacity 0.3s ease;
+    
   }
   .auth {
     display: flex;
@@ -56,6 +56,7 @@
   }
 
   .auth-app-enter-active, .auth-app-leave-active {
+    transition: opacity 0.3s ease;
     opacity: 1;
   }
   .auth-app-enter, .auth-app-leave-to {
@@ -75,6 +76,9 @@
                   v-model="password"
                   v-on:keyup.enter="authMe">
         </div>
+      </div>
+      <div class="auth-btn">
+        Sign in
       </div>
     </div>
   </transition>
@@ -102,15 +106,13 @@
           auth: 'auth'
       }),
       authMe() {
-        console.log('EEPOOOOOKKK', this.password, this.login);
+        debugger;
         if (this.login && this.password)
           this.auth({ login: this.login, password: this.password })
           .then((res) => {
-            this.message = res;
-            console.log('RES', res);
+            this.result = res;
           }).catch((err) => {
             this.error = err;
-            console.log('ERR', err);
           });
       }
     }
