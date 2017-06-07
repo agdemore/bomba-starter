@@ -25,7 +25,7 @@ export const getBillbyId = (store, id) => {
   return axios.get(`/bills/${id}?token=${token}`)
   .then(res => {
     console.log('BILL', res);
-    commit(GET_BILL, res.data.bill);
+    commit(GET_BILL, res.data);
     return res;
   }).catch(err => {
     console.error(err);
@@ -37,10 +37,8 @@ export const saveBill = (store, bill) => {
   const { commit, rootState } = store;
   const token = rootState.auth.token;
 
-  console.log('save bill');
-  return axios.post(`/bills/saveOpenBill?token=${token}`, {
-    bill
-  }).then(res => {
+  console.log('save bill', bill);
+  return axios.post(`/bills/saveOpenBill?token=${token}`, bill).then(res => {
     console.log('res bill', res);
     commit(SAVE_BILL, bill);
     return res;

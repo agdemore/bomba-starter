@@ -15,6 +15,16 @@
     padding: 8px;
     min-width: 100px;
 
+    &.open {
+
+    }
+    &.closing {
+      backgrund-color: #2ecc71;
+    }
+    &.dead {
+      backgrund-color: #d6d6d6;
+    }
+
     &__title {
       display: flex;
       flex-direction: column;
@@ -43,28 +53,47 @@
   }
 </style>
 <template>
-  <div class="bill">
+  <div class="bill" :class={ [bill.type]: true }>
     <div class="bill__title">
-      <div class="bill__title--name">{{ (bill.title || 'Счет') }}</div>
-      <div class="bill__title--receiver">{{ 'Получатель: ' + (bill.receiver || 'Кафе / ресторан') }}</div>
+      <div class="bill__title--name">{{ (bill.clientData.title || 'Счет') }}</div>
+      <div class="bill__title--receiver">{{ 'Получатель: ' + (getReceiver(bill.receiver)) }}</div>
     </div>
     <div class="bill__data">
-      <div class="pay">{{ 'Сумма счета: ' + (bill.pay || 0) + ' уе.' }}</div>
-      <div class="complete">{{ 'Состояние: ' + (bill.complete ? 'завершен' : 'активен') }}</div>
+      <div class="pay">{{ 'Сумма счета: ' + (bill.summ || 0) + ' уе.' }}</div>
+      <div class="complete">{{ 'Состояние: ' + getType() }}</div>
     </div>
   </div>
 </template>
 <script type="text/babel">
-  import { mapActions } from 'vuex'
+  import { mapActions, mapState } from 'vuex'
   export default {
     props: ['bill'],
     data() {
       return {
       };
     },
+    computed: {
+      ...mapState({
+        friends: state => state.auth.friends || []
+      }),
+      getType() {
+        if (bill.type === 'open')
+          return 'открыт';
+        if (bill.type === 'closing')
+          return 'активен';
+        if (bill.type === 'dead')
+          return 'завершен';
+      }
+    },
     methods: {
       ...mapActions({
-      })
+      }),
+      getReceiver(rec) {
+        const ind = this.friends.findIndex(fr => fr.wallet === rec);
+        if (ind === -1)
+          return 'Получатель не задан';
+        return this.friends[ind].name;
+      }
     },
     components: {
     },

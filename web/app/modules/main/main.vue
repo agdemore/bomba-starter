@@ -35,10 +35,15 @@
   export default {
     sockets:{
       connect: function(){
-        console.log('socket connected')
+        console.log('socket connected');
+        // Notification.requestPermission(function(permission){
+        // console.log('Результат запроса прав:', permission);
+        // });
       },
       'some event': function(val){
-        console.log('SOME EVENT', val)
+        // var notification = new Notification('Сколько',
+        // { body: 'Только ты!', dir: 'auto', icon: 'icon.jpg' });
+        // console.log('SOME EVENT', val)
       }
     },
     computed: {

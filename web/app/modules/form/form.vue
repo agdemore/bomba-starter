@@ -43,6 +43,7 @@
       }
     }
     &__panel {
+      flex-shrink: 0;
       display: flex;
       flex-direction: row;
       justify-content: center;
