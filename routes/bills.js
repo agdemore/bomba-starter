@@ -69,8 +69,9 @@ router.post('/saveOpenBill', (req, res, next) => {
 });
 
 router.post('/closeOpenBill', (req, res, next) => {
-    let bill = req.body;
-    contractAPI.closeOpenBill(bill);
+    let bill = req.body.id;
+    contractAPI.closeOpenBill(bill.id);
+  res.json({ });
 });
 
 router.post('/confirm', (req, res, next) => {
