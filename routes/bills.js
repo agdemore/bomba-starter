@@ -77,6 +77,7 @@ router.post('/closeOpenBill', (req, res, next) => {
 router.post('/confirm', (req, res, next) => {
   let data = req.body;
   contractAPI.confirmPayment(data.billId, data.wallet);
+  res.json({ });
 });
 
 module.exports = router;
