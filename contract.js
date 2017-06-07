@@ -69,7 +69,7 @@ exports.closeOpenBill = closeOpenBill;
  */
 exports.confirmPayment = (billId, wallet) => {
   web3.personal.unlockAccount(web3.eth.accounts[0], "password");
-  billerContract.confirm.sendTransaction(parseInt(billId), wallet, {from: web3.eth.accounts[0], gas:1000000});
+  billerContract.confirm.sendTransaction(billId, wallet, {from: web3.eth.accounts[0], gas:1000000});
 };
 
 /**
