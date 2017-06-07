@@ -41,12 +41,12 @@ export const getInfo = (store) => {
       store.commit(LOG_OFF);
     else store.commit(GET_USER_INFO, res.data);
     const token = window.localStorage.getItem('share-pay-user-token');
-    return axios.get('/friends', {
+    return axios.get(`/friends?token=${token}`, {
       token
     }).then(res => {
       console.log('FRRR', res);
       if (!res.data.error)
-        commit(SET_FRIENDS, res.data.friends);
+        store.commit(SET_FRIENDS, res.data.friends);
       return res.data.friends;
     });
   });
