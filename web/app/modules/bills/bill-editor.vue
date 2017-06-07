@@ -301,6 +301,13 @@
         this.$router.push({ name: 'current' });
       },
       save() {
+        if (!this.newbill.payers)
+          this.newbill.payers = [];
+        this.news.forEach(payer => {
+          this.newbill.payers.push(payer);
+        });
+        this.news = [];
+        console.log('this.newbill', this.newbill);
         this.saveBill(this.newbill);
       },
       getUser(wallet) {

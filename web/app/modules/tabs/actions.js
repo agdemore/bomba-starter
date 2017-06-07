@@ -9,7 +9,7 @@ export const getBills = (store) => {
   axios.post(`/bills?token=${token}`, {
     wallet
   }).then(res => {
-    console.log(res);
+    console.log('BILLS!!!!', res);
     commit(GET_BILLS, res.data.bills);
   }).catch(err => {
     console.error(err);

@@ -50,7 +50,7 @@
       }
     },
     mounted() {
-      this.getInfo().then(this.getBills);
+      
     }
   };
 </script>

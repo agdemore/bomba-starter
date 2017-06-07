@@ -152,7 +152,9 @@
     methods: {
       ...mapActions({
         logOff: 'logOff',
-        clearBill: 'clearBill'
+        clearBill: 'clearBill',
+        getInfo: 'getInfo',
+        getBills: 'getBills'
       }),
       logoutClick() {
         this.logOff();
@@ -171,6 +173,7 @@
     },
     mounted() {
       this.activated = 'current';
+      this.getInfo().then(this.getBills);
     }
   };
 </script>
