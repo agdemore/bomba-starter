@@ -2,6 +2,7 @@
  * Created by agdemore on 05.06.17.
  */
 import axios from 'axios';
+import { CLEAR_BILLS, CLEAR_BILL } from 'modules/tabs/actions.js';
 
 export const CHANGE_TOKEN = 'CHANGE_TOKEN';
 export const auth = (store, { login, password }) => {
@@ -23,6 +24,8 @@ export const LOG_OFF = 'LOG_OFF';
 export const logOff = (store) => {
   const { commit } = store;
   window.localStorage.setItem('share-pay-user-token', null);
+  commit(CLEAR_BILLS);
+  commit(CLEAR_BILL);
   return commit(LOG_OFF);
 };
 

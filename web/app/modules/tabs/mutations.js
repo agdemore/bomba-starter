@@ -3,7 +3,8 @@ import {
   GET_BILLS,
   GET_BILL,
   SAVE_BILL,
-  CLEAR_BILL
+  CLEAR_BILL,
+  CLEAR_BILLS
 } from './actions';
 
 export const defaultState = {
@@ -25,5 +26,8 @@ export const mutations = {
   },
   [CLEAR_BILL](state) {
     state.currentBill = null;
+  },
+  [CLEAR_BILLS](state) {
+    state.bills = [];
   }
 };

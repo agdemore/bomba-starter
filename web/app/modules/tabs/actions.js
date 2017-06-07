@@ -50,6 +50,7 @@ export const saveBill = (store, bill) => {
 
 
 export const CLEAR_BILL = 'CLEAR_BILL';
+export const CLEAR_BILLS = 'CLEAR_BILLS';
 export const clearBill = (store) => {
   return store.commit(CLEAR_BILL);
 };

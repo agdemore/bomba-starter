@@ -86,7 +86,8 @@
     computed: {
       ...mapState({
         friends: state => state.auth.friends || [],
-        mywallet: state => state.auth.wallet
+        mywallet: state => state.auth.wallet,
+        myname: state => state.auth.name
       }),
       getType() {
         if (this.bill.type === 'open')
@@ -103,7 +104,7 @@
       getReceiver(rec) {
         const ind = this.friends.findIndex(fr => fr.wallet === rec);
         if (ind === -1)
-          return 'Получатель не задан';
+          return this.myname;
         return this.friends[ind].name;
       }
     },
