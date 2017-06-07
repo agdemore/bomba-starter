@@ -236,7 +236,7 @@
         <input type="number" size="6" name="num" min="0" max="1000000" class="items__value input-modern" v-model.number="payer.amount" placeholder="Сумма"/>
         <div class="items__status" :class="{ 'ready': payer.confirmed }">{{ payer.confirmed ? 'оплачено' : 'ожидание' }}</div>
       </div>
-      <div v-for="payer in newbill.payers" class="bill-editor__fields--items">
+      <div v-for="(payer, index) in newbill.payers" class="bill-editor__fields--items">
         <!--<div class="items__title">{{ getUser(payer.wallet) }}</div>-->
 
         <div class="dropdown">
@@ -309,6 +309,7 @@
         this.news = [];
         console.log('this.newbill', this.newbill);
         this.saveBill(this.newbill);
+        this.$router.push({ name: 'current' });
       },
       getUser(wallet) {
         const ind = (this.friends || []).find(urs => usr.wallet === wallet);
