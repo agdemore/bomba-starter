@@ -6,6 +6,8 @@ export const getBills = (store) => {
 
   const token = rootState.auth.token;
   const wallet = rootState.auth.wallet;
+  console.log('wallet', wallet);
+  
   axios.post(`/bills?token=${token}`, {
     wallet
   }).then(res => {
