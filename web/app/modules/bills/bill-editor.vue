@@ -327,7 +327,7 @@
       if (this.bill === null) {
         this.isNew = true;
         this.newbill = {
-          title: 'Счет 1',
+          title: 'Новый счет 1',
           pay: 100,
           type: '',
           payers: [],
