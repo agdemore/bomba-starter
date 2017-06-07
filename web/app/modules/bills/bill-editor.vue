@@ -173,8 +173,8 @@
   }
 
   .dropdown {
-    curssor: pointer;
-    
+    cursor: pointer;
+
     width: 300px;
     position: relative;
     display: inline-block;
