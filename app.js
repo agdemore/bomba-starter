@@ -5,13 +5,15 @@ let path = require('path');
 
 let contractAPI = require('./contract');
 
-contractAPI.saveOpenBill({
-  id: "testobill",
-  type: "open",
-  clientData: "my data!",
-  summ: 20,
-  receiver: "0x1d7ED9A6f43C697d365715759f3281C0bc67EcfC"
-});
+var r = contractAPI.getAllBills();
+
+// contractAPI.saveOpenBill({
+//   id: 35,
+//   type: "open",
+//   clientData: "my data!",
+//   summ: 20,
+//   receiver: "0x1d7ED9A6f43C697d365715759f3281C0bc67EcfC"
+// });
 
 let bodyParser = require('body-parser');
 // parse application/x-www-form-urlencoded
@@ -24,9 +26,6 @@ app.use('/dist', express.static(path.join(__dirname, 'web/dist')));
 app.get(function root(req, res) {
   res.sendFile(path.join(__dirname, 'web/public/index.html'));
 });
-
-// просто тестовый вызов чего нибудь на смарт контракте
-contractAPI.doSomethingWithContract();
 
 app.use('/test', function root(req, res) {
   res.json({ "mainAccBalance": contractAPI.test() });
