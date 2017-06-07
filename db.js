@@ -9,19 +9,19 @@ module.exports = {
             name: 'alex',
             password: '1234',
             token: '34fq23f4q23f-fq34qf45-fq45q354-qfq45fw4623',
-            wallet: '0x75dcd745c79ba87ce88c328b887ee8a082b7c109'
+            wallet: '0x6959a72ff86a59b59adf9ae8ab12fe45afd46cd3'
         },
         {
             name: 'nikita',
             password: '1234',
             token: 'q3f4qf3q-fq4fqcff45-cqf4cq4qw-qwverqrvwe33',
-            wallet: '0x49f2c47f1470989f4e0e8e3aa482f160a76ee2aa'
+            wallet: '0x52eddbc9da1246452e1442be383fd4e67c0e17dc'
         },
         {
             name: 'roma',
             password: '1234',
             token: 'jcf3i45-3c45w34c34t-c4tw35twc5w45tcwertwc5',
-            wallet: '0x1d7ed9a6f43c697d365715759f3281c0bc67ecfc'
+            wallet: '0x264176fd6922d6dc9a86100b6a067fd501f6dc78'
         }
     ]
 }
