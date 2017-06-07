@@ -3,6 +3,10 @@ let express = require('express');
 let app = express();
 let path = require('path');
 
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 let contractAPI = require('./contract');
 
 var r = contractAPI.getAllBills();
@@ -39,8 +43,23 @@ app.use('/auth', require('./routes/auth'));
 app.use('/bills', require('./routes/bills'));
 app.use('/friends', require('./routes/friends'));
 
-let server = app.listen(port, function() {
-  let host = server.address().address;
-  console.log('Server is listening at http://%s:%s', host, port);
+io.on('connection', function(socket) {
+    console.log('connect');
+    socket.broadcast.emit("test");
+    io.emit('some event', { for: 'everyone' });
+    // a user has visited our page - add them to the visitorsData object
+    socket.on('disconnect', function() {
+        console.log('disconnect');
+        // a user has left our page - remove them from the visitorsData object
+    });
 });
+http.listen(port, function() {
+    console.log('listening on *:' + port);
+});
+
+// let server = app.listen(port, function() {
+//   let host = server.address().address;
+//   console.log('Server is listening at http://%s:%s', host, port);
+// })
+
 

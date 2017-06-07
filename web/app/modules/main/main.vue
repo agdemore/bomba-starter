@@ -9,7 +9,7 @@
   .app-container {
     display: flex;
     height: 100%;
-    padding: 5px;
+    
   }
 
   .fade-router-enter-active, .fade-router-leave-active {
@@ -33,6 +33,14 @@
   import Vue from 'vue';
 
   export default {
+    sockets:{
+      connect: function(){
+        console.log('socket connected')
+      },
+      customEmit: function(val){
+        console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+      }
+    },
     computed: {
       ...mapState({
       }),

@@ -1,5 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
+**/.idea
+.idea/**/*.xml
 /node_modules
 /web/dist
 yarn.lock
