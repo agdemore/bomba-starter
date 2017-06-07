@@ -6,4 +6,5 @@
 /web/dist
 yarn.lock
 package.lock
+*.iml
 .node-xmlhttprequest-sync-*
