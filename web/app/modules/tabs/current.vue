@@ -43,14 +43,12 @@
         getBillbyId: 'getBillbyId'
       }),
       billClick(bill) {
-        console.log('fsfsdfsdf!!!! ! !!');
-        this.getBillbyId(bill.id).then(() => {
+        this.getBillbyId(bill).then(() => {
           this.$router.push({ name: 'bill' });
         });
       }
     },
     mounted() {
-      
     }
   };
 </script>

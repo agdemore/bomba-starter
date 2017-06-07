@@ -5,6 +5,7 @@
     flex-grow: 1;
 
     &__header {
+      flex-shrink: 0;
       display: flex;
       flex-direction: row;
       justify-content: flex-end;

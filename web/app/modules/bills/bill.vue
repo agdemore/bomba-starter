@@ -49,6 +49,9 @@
         display: flex;
         justify-content: flex-end;
       }
+      .closing {
+        color: #27ae60;
+      }
     }
   }
 </style>
@@ -60,7 +63,7 @@
     </div>
     <div class="bill__data">
       <div class="pay">{{ 'Сумма счета: ' + (bill.summ || 0) + ' уе.' }}</div>
-      <div class="complete">{{ 'Состояние: ' + getType }}</div>
+      <div :class="`complete ${this.bill.type === 'closing' ? 'closing' : ''}`">{{ 'Состояние: ' + getType }}</div>
     </div>
   </div>
 </template>
@@ -77,11 +80,11 @@
         friends: state => state.auth.friends || []
       }),
       getType() {
-        if (bill.type === 'open')
+        if (this.bill.type === 'open')
           return 'открыт';
-        if (bill.type === 'closing')
-          return 'активен';
-        if (bill.type === 'dead')
+        if (this.bill.type === 'closing')
+          return 'требует закрытия';
+        if (this.bill.type === 'dead')
           return 'завершен';
       }
     },

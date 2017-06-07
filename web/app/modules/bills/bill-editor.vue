@@ -319,10 +319,13 @@
     computed: {
       ...mapState({
         bill: state => state.tabs.currentBill,
-        friends: state => state.auth.friends || [],
+        friendsall: state => state.auth.friends || [],
         mywallet: state => state.auth.wallet,
         myname: state => state.auth.name
       }),
+      friends() {
+        return [...this.friendsall, { name: this.myname, wallet: this.mywallet }];
+      },
       mappedFriends() {
         return this.friends;
         // .filter(elem => {
@@ -338,7 +341,7 @@
         this.news.forEach(pay => {
           sum += pay.amount;
         });
-        return this.newbill.pay > sum;
+        return this.newbill.pay >= sum;
       }
     },
     methods: {
@@ -390,7 +393,8 @@
         if (!this.newbill.payers)
           this.newbill.payers = [];
         this.news.forEach(payer => {
-          this.newbill.payers.push(payer);
+          if (payer.wallet)
+            this.newbill.payers.push(payer);
         });
         this.news = [];
         console.log('this.newbill', this.newbill);
@@ -399,7 +403,7 @@
           id: (this.bill || {}).id,
           type: (this.bill || {}).type || 'open', // ?????,
           summ: this.newbill.pay,
-          payers: this.newbill.payers,
+          payers: this.newbill.payers.map(el => el.wallet),
           receiver: this.newbill.receiver
         });
         this.$router.push({ name: 'current' });
@@ -420,6 +424,23 @@
           });
       }
     },
+    watch: {
+      bill() {
+        if (this.bill === null) {
+          this.isNew = true;
+          this.newbill = {
+            title: 'Новый счет 1',
+            pay: 100,
+            type: 'open',
+            payers: [],
+            complete: false,
+            receiver: ''
+          };
+          return;
+        }
+        this.newbill = cloneDeep(this.bill.clientData);
+      }
+    },
     mounted() {
       if (this.bill === null) {
         this.isNew = true;
@@ -434,6 +455,8 @@
         return;
       }
       this.newbill = cloneDeep(this.bill.clientData);
+      this.newbill.type = this.bill.type;
+      console.log('mounteeeed', this.newbill);
     }
   };
 </script>
