@@ -13,7 +13,6 @@ window.Vue = Vue;
 import VueSocketio from 'vue-socket.io';
 Vue.use(VueSocketio, 'http://localhost:8000');
 
-require('uikit/application.scss');
 new Vue({
   el: '#main',
   store,
