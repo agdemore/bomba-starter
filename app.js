@@ -9,7 +9,7 @@ var io = require('socket.io')(http);
 
 let contractAPI = require('./contract');
 
-var r = contractAPI.getAllBills();
+// var r = contractAPI.getAllBills();
 
 // contractAPI.saveOpenBill({
 //   id: 35,
