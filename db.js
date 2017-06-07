@@ -12,7 +12,7 @@ module.exports = {
             wallet: '0x6959a72ff86a59b59adf9ae8ab12fe45afd46cd3'
         },
         {
-            name: 'nikita',
+            name: 'Ресторан3000',
             password: '1234',
             token: 'q3f4qf3q-fq4fqcff45-cqf4cq4qw-qwverqrvwe33',
             wallet: '0x52eddbc9da1246452e1442be383fd4e67c0e17dc'

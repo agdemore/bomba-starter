@@ -15,6 +15,11 @@
     padding: 8px;
     min-width: 100px;
 
+    &--profit {
+      color: #00ad49;
+      font-size: 26px;
+    }
+
     &.open {
 
     }
@@ -35,7 +40,7 @@
         color: grey;
         font-size: 12px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
       }
     }
 
@@ -61,6 +66,9 @@
       <div class="bill__title--name">{{ (bill.clientData.title || 'Счет') }}</div>
       <div class="bill__title--receiver">{{ 'Получатель: ' + (getReceiver(bill.receiver)) }}</div>
     </div>
+    <div class="bill--profit" v-if="bill.type === 'dead' && bill.receiver === mywallet">
+      {{ '+' + this.bill.summ + 'у.е.' }}
+    </div>
     <div class="bill__data">
       <div class="pay">{{ 'Сумма счета: ' + (bill.summ || 0) + ' уе.' }}</div>
       <div :class="`complete ${this.bill.type === 'closing' ? 'closing' : ''}`">{{ 'Состояние: ' + getType }}</div>
@@ -77,7 +85,8 @@
     },
     computed: {
       ...mapState({
-        friends: state => state.auth.friends || []
+        friends: state => state.auth.friends || [],
+        mywallet: state => state.auth.wallet
       }),
       getType() {
         if (this.bill.type === 'open')

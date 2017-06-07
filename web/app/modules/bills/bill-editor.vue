@@ -346,7 +346,8 @@
     },
     methods: {
       ...mapActions({
-        saveBill: 'saveBill'
+        saveBill: 'saveBill',
+        approveBill: 'approveBill'
       }),
       getName(wal) {
         console.log(this.friends, wal);
@@ -378,11 +379,21 @@
         // if (!this.summCheck)
         //   return;
         const me = this.newbill.payers.findIndex(el => el.wallet === this.mywallet);
+        let wallet = '';
         console.log(this.mywallet, this.newbill.payers);
-        if (me !== -1)
+        if (me !== -1) {
           this.newbill.payers[me].confirmed = true;
-        this.save(true);
+          wallet = this.newbill.payers[me].wallet;
+        }
+        // this.save(true);
         // this.$router.push({ name: 'current' });
+        const payload = {
+          billId: this.bill.id,
+          wallet
+        };
+        console.log('to confirm', payload);
+        this.approveBill(payload);
+        this.$router.push({ name: 'current' });
       },
       back() {
         this.$router.push({ name: 'current' });
@@ -403,7 +414,7 @@
           id: (this.bill || {}).id,
           type: (this.bill || {}).type || 'open', // ?????,
           summ: this.newbill.pay,
-          payers: this.newbill.payers.map(el => el.wallet),
+          payers: this.newbill.payers,
           receiver: this.newbill.receiver
         });
         this.$router.push({ name: 'current' });
@@ -438,7 +449,13 @@
           };
           return;
         }
+        
         this.newbill = cloneDeep(this.bill.clientData);
+        this.newbill.type = this.bill.type;
+        this.newbill.receiver = this.bill.receiver;
+        if (this.newbill.type === 'closing' || this.newbill.type === 'dead') {
+          this.newbill.payers = cloneDeep(this.bill.payers);
+        }
       }
     },
     mounted() {
@@ -456,6 +473,10 @@
       }
       this.newbill = cloneDeep(this.bill.clientData);
       this.newbill.type = this.bill.type;
+      this.newbill.receiver = this.bill.receiver;
+      if (this.newbill.type === 'closing' || this.newbill.type === 'dead') {
+        this.newbill.payers = cloneDeep(this.bill.payers);
+      }
       console.log('mounteeeed', this.newbill);
     }
   };

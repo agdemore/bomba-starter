@@ -53,3 +53,9 @@ export const CLEAR_BILL = 'CLEAR_BILL';
 export const clearBill = (store) => {
   return store.commit(CLEAR_BILL);
 };
+
+export const approveBill = (store, payload) => {
+  const token = store.rootState.auth.token;
+  return axios.post(`/bills/confirm?token=${token}`, payload);
+};
+
