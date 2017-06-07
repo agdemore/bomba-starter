@@ -8,10 +8,12 @@ const mongo = require('./mongo');
 /**
  * Записать новый счет в контракт
  */
-exports.saveOpenBill = (bill) => {
+exports.saveOpenBill = async (bill) => {
     // даст команду на смарт контракт дабы сохранить в нем данные
     // здесь надо чекать статус и корректность входящего счета
     // на предмет существования таких счетов в блокчейне будет озадачиваться контракт
+    const newBill = new mongo.Bill(bill);
+    await newBill.save();
 };
 
 /**
