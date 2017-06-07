@@ -2,7 +2,7 @@ import Vue from 'vue';
 import store from 'store';
 import Router from 'router';
 import Main from 'modules/main/main.vue';
-import sock from 'store/socket.js';
+// import sock from 'store/socket.js';
 
 window.Vue = Vue;
 // Vue.prototype.$mysock = new sock('http://localhost:8080');
