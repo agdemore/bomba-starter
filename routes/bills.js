@@ -21,57 +21,47 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     let data = req.body;
+  res.json(contractAPI.getAllBills());
 
-    let wallet = (data.wallet) ? data.wallet : undefined;
-    if (wallet) {
-        let bills = contractAPI.getBillsByAccount(wallet);
-        let billsForClient = [];
-        bills.map((bill) => {
-            billsForClient.push(JSON.parse(bill.clientData));
-        });
-        res.json({ error: false, bills: billsForClient});
-    } else {
-        res.json({ error: true })
-    }
+    // let wallet = (data.wallet) ? data.wallet : undefined;
+    // if (wallet) {
+    //     let bills = contractAPI.getAllBills(); // todo for account
+    //     let billsForClient = [];
+    //     bills.map((bill) => {
+    //         billsForClient.push(JSON.parse(bill.clientData));
+    //     });
+    //     res.json(billsForClient);
+    // } else {
+    //     res.json({ error: true })
+    // }
 });
 
 router.get('/:billId', (req, res, next) => {
     const billId = req.params.billId;
     if (billId) {
-        let bill = contractAPI.getBillById(billId).clientData;
-        res.json({ error: false, bill: JSON.parse(bill.clientData) });
+        let clientData = contractAPI.getBillById(billId).clientData;
+        res.json(JSON.parse(clientData));
     } else {
         res.json({ error: true })
     }
 });
 
 router.post('/saveOpenBill', (req, res, next) => {
-    let data = req.body;
-    let billClientData = (data.bill) ? data.bill : undefined;
+    let bill = req.body;
+    let billClientData = (bill.clientData) ? bill.clientData : undefined;
     if (billClientData) {
-        let bill;
-        if (billClientData.id) {
-            bill = contractAPI.getBillById(billClientData.id);
+        let creatingBill;
+        if (bill.id) {
+          creatingBill = contractAPI.getBillById(bill.id);
         } else {
             //new bill
-            bill = {};
-            while (contractAPI.getBillById(bill.id)) {
-                bill.id = _.random(100);
-            }
-            bill.summ = billClientData.pay;
-            bill.type = 'open';
-            bill.receiver = billClientData.receiver;
+            creatingBill = bill;
+            // while (!contractAPI.getBillById(creatingBill.id)) {
+              creatingBill.id = _.random(20);
+            // }
+            creatingBill.type = 'open';
         }
-
-        // bill.clientData = billClientData;
-
-        bill.clientData = billClientData;
-
-        bill.payers = billClientData.payers.map(payer => {
-            return payer.wallet;
-        });
-        bill.pays = billClientData.payers;
-
+        creatingBill.clientData = billClientData;
         contractAPI.saveOpenBill(bill);
     } else {
         res.json({ error: true });
@@ -79,13 +69,13 @@ router.post('/saveOpenBill', (req, res, next) => {
 });
 
 router.post('/closeOpenBill', (req, res, next) => {
-    let data = req.body;
-    let billClientData = (data.bill) ? data.bill : undefined;
-    if (billClientData) {
-        contractAPI.closeOpenBill(billClientData.id);
-    } else {
-        res.json({ error: true });
-    }
+    let bill = req.body;
+    contractAPI.closeOpenBill(bill);
+});
+
+router.post('/confirm', (req, res, next) => {
+  let data = req.body;
+  contractAPI.confirmPayment(data.billId, data.wallet);
 });
 
 module.exports = router;
