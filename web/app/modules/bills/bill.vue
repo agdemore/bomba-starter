@@ -53,14 +53,14 @@
   }
 </style>
 <template>
-  <div class="bill" :class={ [bill.type]: true }>
+  <div class="bill" :class="{ [bill.type]: true }">
     <div class="bill__title">
       <div class="bill__title--name">{{ (bill.clientData.title || 'Счет') }}</div>
       <div class="bill__title--receiver">{{ 'Получатель: ' + (getReceiver(bill.receiver)) }}</div>
     </div>
     <div class="bill__data">
       <div class="pay">{{ 'Сумма счета: ' + (bill.summ || 0) + ' уе.' }}</div>
-      <div class="complete">{{ 'Состояние: ' + getType() }}</div>
+      <div class="complete">{{ 'Состояние: ' + getType }}</div>
     </div>
   </div>
 </template>
