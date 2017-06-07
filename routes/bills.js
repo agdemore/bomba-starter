@@ -10,8 +10,8 @@ const express = require('express'),
     checkToken = require('../middlewares').checkToken,
     moment = require('moment'),
     uuid = require('node-uuid'),
-    contractAPI = require('../contract'),
-    contactsMongo = require('../contractMongo');
+    contractAPI = require('../contract');
+    // contactsMongo = require('../contractMongo');
 
 router.use(checkToken);
 
@@ -19,12 +19,12 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', (req, res, next) => {
     let data = req.body;
 
     let wallet = (data.wallet) ? data.wallet : undefined;
     if (wallet) {
-        let bills = await contactsMongo.getBillsByAccount(wallet);//todo contractAPI.getBillsByAccount(wallet);
+        let bills = contractAPI.getBillsByAccount(wallet);
         let billsForClient = [];
         bills.map((bill) => {
             billsForClient.push(JSON.parse(bill.clientData));
@@ -35,27 +35,27 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.get('/:billId', async (req, res, next) => {
+router.get('/:billId', (req, res, next) => {
     const billId = req.params.billId;
     if (billId) {
-        let bill = await contactsMongo.getBillById(billId); //todo contractAPI.getBillById(billId).clientData;
+        let bill = contractAPI.getBillById(billId).clientData;
         res.json({ error: false, bill: JSON.parse(bill.clientData) });
     } else {
         res.json({ error: true })
     }
 });
 
-router.post('/saveOpenBill', async (req, res, next) => {
+router.post('/saveOpenBill', (req, res, next) => {
     let data = req.body;
     let billClientData = (data.bill) ? data.bill : undefined;
     if (billClientData) {
         let bill;
         if (billClientData.id) {
-            bill = await contactsMongo.getBillById(billClientData.id);//todo contractAPI.getBillById(billClientData.id);
+            bill = contractAPI.getBillById(billClientData.id);
         } else {
             //new bill
             bill = {};
-            while (await contactsMongo.getBillById(bill.id)) { //todo contractAPI.getBillById(bill.id)
+            while (contractAPI.getBillById(bill.id)) {
                 bill.id = _.random(100);
             }
             bill.summ = billClientData.pay;
@@ -72,7 +72,7 @@ router.post('/saveOpenBill', async (req, res, next) => {
         });
         bill.pays = billClientData.payers;
 
-        await contactsMongo.saveOpenBill(bill)//todo contractAPI.saveOpenBill(bill);
+        contractAPI.saveOpenBill(bill);
     } else {
         res.json({ error: true });
     }
