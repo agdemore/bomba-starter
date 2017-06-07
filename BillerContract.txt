@@ -1,0 +1,88 @@
+pragma solidity ^0.4.11;
+
+contract Biller {
+
+    event Closed(
+        uint billId
+    );
+
+    event Saved(
+        uint billId
+    );
+
+    event Dead(
+        uint billId
+    );
+
+
+    struct Bill {
+        uint id;
+        uint status; // 1, 2, 3
+        address reciever;
+        uint summ;
+        string clientData;
+        string payers;
+        address[10] wallets;
+        int[10] amounts;
+        int[10] payStatuses;  // 0,1 - not done, 2 - done
+    }
+
+    mapping(uint => Bill) public bills;
+
+    function Biller() {
+    }
+
+    function saveOpenBill(uint id, address reciever, uint summ, string clientData, string payers, address[10] wallets, int[10] amounts, int[10] payStatuses) {
+        // проверять есть ли билль если есть - проверять открыт ли он
+        bills[id] = Bill(id, 1, reciever, summ, clientData, payers, wallets, amounts, payStatuses);
+        Saved(id);
+    }
+
+    function setClosing(uint id, address[10] wallets, int[10] amounts) public {
+        bills[id].status = 2;
+        bills[id].wallets = wallets;
+        bills[id].amounts = amounts;
+        Closed(id);
+    }
+
+    function getAmounts(uint id) public constant returns (int[10])  {
+        return bills[id].amounts;
+    }
+
+    function getWallets(uint id) public constant returns (address[10])  {
+        return bills[id].wallets;
+    }
+
+    function getPayStatuses(uint id) public constant returns (int[10])  {
+        return bills[id].payStatuses;
+    }
+
+    function confirm(uint id, address wallet) public {
+        var bill = bills[id];
+        for (uint i = 0; i < 10; i++) {
+            if (wallet == bill.wallets[i]) {
+                bills[id].payStatuses[i] = 2;
+            }
+        }
+
+        int notPayedCount = 0;
+        for (uint j = 0; j < 10; j++) {
+            if(bills[id].amounts[j] != 0) {
+                if(bills[id].payStatuses[j] != 2) {
+                    notPayedCount++;
+                }
+            }
+        }
+
+        if(notPayedCount == 0) {
+            bills[id].status = 3;
+            Dead(id);
+        }
+    }
+
+    function getBillById(uint id) public constant returns (uint, address, uint, string, string) {
+        var bill = bills[id];
+        return (bill.status, bill.reciever, bill.summ, bill.clientData, bill.payers);
+    }
+
+}
